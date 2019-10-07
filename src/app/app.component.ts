@@ -3,7 +3,12 @@ import { UserService } from './user.service';
 import { User } from './user';
 import { VariableAst } from '@angular/compiler';
 import { error } from '../../node_modules/protractor';
-import { MatSort, MatTableDataSource, MatPaginator, MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatIconModule } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { DialogOverviewExampleDialogComponent } from './dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 import { Alert } from '../../node_modules/@types/selenium-webdriver';
 import { FormControl, Validators } from '@angular/forms';
@@ -16,7 +21,7 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatPaginator,  {static: true}) paginator: MatPaginator;
 
     addNewUser: User[] = [
         { Id: 0, Name: null, Age: null, Email: null, Surname: null }
@@ -36,7 +41,7 @@ export class AppComponent implements OnInit {
         this.users = new Array<User>();
     }
 
-    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatSort,  {static: true}) sort: MatSort;
 
     ngOnInit() {
         this.loadUsers();

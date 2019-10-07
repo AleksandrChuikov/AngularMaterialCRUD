@@ -1,14 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
 import {User} from './user';
-import {Observable} from 'rxjs';
-import { RequestOptions } from '@angular/http';
    
 @Injectable()
 export class UserService{
    
     private url = "https://apialex.azurewebsites.net";
-    // private url = "http://localhost:51120";
+
     constructor(private http: HttpClient){ }
       
     getUsers(){
