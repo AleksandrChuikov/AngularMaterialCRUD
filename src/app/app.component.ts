@@ -24,14 +24,14 @@ export class AppComponent implements OnInit {
     @ViewChild(MatPaginator,  {static: true}) paginator: MatPaginator;
 
     addNewUser: User[] = [
-        { Id: 0, Name: null, Age: null, Email: null, Surname: null }
+        { id: 0, name: null, age: null, email: null, surname: null }
     ];
 
     users: Array<User>;
     showTable: boolean;
     statusMessage: string;
     isLoaded: boolean = true;
-    displayedColumnsUsers: string[] = ['Id', 'Name', 'Surname', 'Age', 'Email', 'Change', 'Delete'];
+    displayedColumnsUsers: string[] = ['id', 'name', 'surname', 'age', 'email', 'Change', 'Delete'];
     displayedColumnsAddUser: string[] = ['Name', 'Surname', 'Age', 'Email', 'Save', 'Cancel'];
     dataSourceUsers: any;
     dataSourceAddUser: any;
@@ -62,7 +62,7 @@ export class AppComponent implements OnInit {
             this.users = data;
             this.users.sort(function (obj1, obj2) {
                 // Descending: first id less than the previous
-                return obj2.Id - obj1.Id;
+                return obj2.id - obj1.id;
             });
             this.isLoaded = false;
             this.dataSourceUsers = new MatTableDataSource(this.users);
@@ -78,16 +78,16 @@ export class AppComponent implements OnInit {
     }
     
     deleteUserForDialog(user: User) {
-        this.serv.deleteUser(user.Id).subscribe(data => {
-            this.statusMessage = 'User ' + user.Name + ' is deleted',
+        this.serv.deleteUser(user.id).subscribe(data => {
+            this.statusMessage = 'User ' + user.name + ' is deleted',
                 this.openSnackBar(this.statusMessage, "Success");
             this.loadUsers();
         })
     }
 
     editUser(user: User) {
-        this.serv.updateUser(user.Id, user).subscribe(data => {
-            this.statusMessage = 'User ' + user.Name + ' is updated',
+        this.serv.updateUser(user.id, user).subscribe(data => {
+            this.statusMessage = 'User ' + user.name + ' is updated',
             this.openSnackBar(this.statusMessage, "Success");
             this.loadUsers();
         },
@@ -98,9 +98,9 @@ export class AppComponent implements OnInit {
     }
 
     saveUser(user: User) {
-        if (user.Age != null && user.Name != null && user.Name != "" && user.Age != 0) {
+        if (user.age != null && user.name != null && user.name != "" && user.age != 0) {
             this.serv.createUser(user).subscribe(data => {
-                this.statusMessage = 'User ' + user.Name + ' is added',
+                this.statusMessage = 'User ' + user.name + ' is added',
                 this.showTable = false;
                 this.openSnackBar(this.statusMessage, "Success");
                 this.loadUsers();
@@ -118,7 +118,7 @@ export class AppComponent implements OnInit {
 
     show() {
         this.showTable = true;
-        this.addNewUser = [{ Id: 0, Name: null, Age: null, Email: null, Surname: null }];
+        this.addNewUser = [{ id: 0, name: null, age: null, email: null, surname: null }];
 
     }
     cancel() {

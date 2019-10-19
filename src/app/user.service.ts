@@ -5,25 +5,25 @@ import {User} from './user';
 @Injectable()
 export class UserService{
    
-    private url = "https://apialex.azurewebsites.net";
+    private url = "https://crud-angular6.azurewebsites.net/backend";
 
     constructor(private http: HttpClient){ }
       
     getUsers(){
-        let getUrl = this.url + "/api/all/";
+        let getUrl = `${this.url}/api/allUsers/`;
         return this.http.get(getUrl);
     }
   
     createUser(user: User){
-        let saveUrl = this.url + "/api/Users";
+        let saveUrl = `${this.url}/api/create`;
         return this.http.post(saveUrl, user); 
     }
+    
     updateUser(id: number, user: User) {
-        const urlParams = new HttpParams().set("id", id.toString());
-        return this.http.post(this.url + "/api/update", user);
+        return this.http.post(`${this.url}/api/update`, user);
     }
+
     deleteUser(id: number){
-        const urlParams = new HttpParams().set("id", id.toString());
-        return this.http.delete(this.url + "/api/delete/" + id);
+        return this.http.delete(`${this.url}/api/delete/${id}`);
     }
 }

@@ -16,7 +16,7 @@
             <th mat-header-cell *matHeaderCellDef> </th>
             <td mat-cell *matCellDef="let element">
                 <mat-form-field floatLabel="never">
-                    <input [value]="element.Name" [(ngModel)]="element.Name" matInput placeholder="Enter your name" [formControl]="name" required>
+                    <input [value]="element.name" [(ngModel)]="element.name" matInput placeholder="Enter your name" [formControl]="name" required>
                     <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
                 </mat-form-field>
             </td>
@@ -27,7 +27,7 @@
             <th mat-header-cell *matHeaderCellDef> </th>
             <td mat-cell *matCellDef="let element">
                 <mat-form-field floatLabel="never">
-                    <input matInput placeholder="Surname" [value]="element.Surname" [(ngModel)]="element.Surname" required [formControl]="surnameFormControl">
+                    <input matInput placeholder="Surname" [value]="element.surname" [(ngModel)]="element.surname" required [formControl]="surnameFormControl">
                     <mat-error *ngIf="surnameFormControl.invalid">{{getErrorMessage()}}</mat-error>
                 </mat-form-field>
             </td>
@@ -38,7 +38,7 @@
             <th mat-header-cell *matHeaderCellDef> </th>
             <td mat-cell *matCellDef="let element">
                 <mat-form-field floatLabel="never">
-                    <input type="number" matInput placeholder="Age" [value]="element.Age" [(ngModel)]="element.Age" [formControl]="age" required>
+                    <input type="number" matInput placeholder="Age" [value]="element.age" [(ngModel)]="element.age" [formControl]="age" required>
                     <mat-error *ngIf="age.invalid">{{getErrorMessage()}}</mat-error>
                 </mat-form-field>
             </td>
@@ -49,7 +49,7 @@
             <th mat-header-cell *matHeaderCellDef> </th>
             <td mat-cell *matCellDef="let element">
                 <mat-form-field floatLabel="never">
-                    <input [value]="element.Email" [(ngModel)]="element.Email" matInput placeholder="Enter your Email" [formControl]="email"
+                    <input [value]="element.email" [(ngModel)]="element.email" matInput placeholder="Enter your Email" [formControl]="email"
                         required>
                     <mat-error *ngIf="email.invalid">{{emailGetErrorMessage()}}</mat-error>
                 </mat-form-field>
@@ -89,48 +89,48 @@
     <table mat-table [dataSource]="dataSourceUsers" matSort class="mat-elevation-z8">
 
         <!-- ID Column -->
-        <ng-container matColumnDef="Id">
+        <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
-            <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
         </ng-container>
 
         <!-- Name Column -->
-        <ng-container matColumnDef="Name" fxFlex="40px">
+        <ng-container matColumnDef="name" fxFlex="40px">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
             <td mat-cell *matCellDef="let element">
                 <mat-form-field floatLabel="never">
-                    <input matInput placeholder="Name" [value]="element.Name" [(ngModel)]="element.Name">
+                    <input matInput placeholder="Name" [value]="element.name" [(ngModel)]="element.name">
                 </mat-form-field>
             </td>
         </ng-container>
 
         <!-- Surname Column -->
-        <ng-container matColumnDef="Surname" fxFlex="40px">
+        <ng-container matColumnDef="surname" fxFlex="40px">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Surname </th>
             <td mat-cell *matCellDef="let element">
                 <mat-form-field floatLabel="never">
-                    <input matInput placeholder="Surname" [value]="element.Surname" [(ngModel)]="element.Surname">
+                    <input matInput placeholder="Surname" [value]="element.surname" [(ngModel)]="element.surname">
                 </mat-form-field>
             </td>
         </ng-container>
 
         <!-- Age Column -->
-        <ng-container matColumnDef="Age">
+        <ng-container matColumnDef="age">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Age </th>
             <td mat-cell *matCellDef="let element">
                 <mat-form-field floatLabel="never">
-                    <input type="number" matInput placeholder="Age" [value]="element.Age" [(ngModel)]="element.Age" >
+                    <input type="number" matInput placeholder="Age" [value]="element.age" [(ngModel)]="element.age" >
                
                 </mat-form-field>
             </td>
         </ng-container>
 
         <!-- Email Column -->
-        <ng-container matColumnDef="Email" fxFlex="40px">
+        <ng-container matColumnDef="email" fxFlex="40px">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
             <td mat-cell *matCellDef="let element">
                 <mat-form-field floatLabel="never">
-                    <input matInput placeholder="Email" [value]="element.Email" [(ngModel)]="element.Email">
+                    <input matInput placeholder="Email" [value]="element.email" [(ngModel)]="element.email">
                 </mat-form-field>
             </td>
         </ng-container>
@@ -139,7 +139,7 @@
         <ng-container matColumnDef="Change">
             <th mat-header-cell *matHeaderCellDef> </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-raised-button (click)="editUser(element)"  > <mat-icon color="accent">edit</mat-icon> Edit </button>
+                <button mat-raised-button (click)="editUser(element)"  > <mat-icon color="accent">edit</mat-icon> Update </button>
             </td>
         </ng-container>
 
