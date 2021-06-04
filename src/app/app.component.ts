@@ -1,16 +1,12 @@
-import { Component, ViewChild, TemplateRef, OnInit, Inject } from '@angular/core';
+import { Component, ViewChild, OnInit} from '@angular/core';
 import { UserService } from './user.service';
 import { User } from './user';
-import { VariableAst } from '@angular/compiler';
-import { error } from '../../node_modules/protractor';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
+import { MatDialog} from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogOverviewExampleDialogComponent } from './dialog-overview-example-dialog/dialog-overview-example-dialog.component';
-import { Alert } from '../../node_modules/@types/selenium-webdriver';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -57,59 +53,66 @@ export class AppComponent implements OnInit {
     }
 
     private loadUsers() {
-        this.isLoaded = true;
-        this.serv.getUsers().subscribe((data: User[]) => {
-            this.users = data;
-            this.users.sort(function (obj1, obj2) {
-                // Descending: first id less than the previous
-                return obj2.id - obj1.id;
-            });
-            this.isLoaded = false;
-            this.dataSourceUsers = new MatTableDataSource(this.users);
-            this.dataSourceAddUser = new MatTableDataSource(this.addNewUser);
-            this.dataSourceUsers.sort = this.sort;
-            this.dataSourceUsers.paginator = this.paginator;
-        },
-            error => {
-                alert("Error: " + error.name);
-                this.isLoaded = false;
-            }
-        );
+      this.isLoaded = true;
+      this.serv.getUsers().subscribe({
+        next:(data => {
+          this.users = data;
+          this.users.sort(function (obj1, obj2) {
+            // Descending: first id less than the previous
+            return obj2.id - obj1.id;
+          });
+          this.isLoaded = false;
+          this.dataSourceUsers = new MatTableDataSource(this.users);
+          this.dataSourceAddUser = new MatTableDataSource(this.addNewUser);
+          this.dataSourceUsers.sort = this.sort;
+          this.dataSourceUsers.paginator = this.paginator;
+        }),
+        error : err => {
+          alert("Error: " + err.message);
+          this.isLoaded = false;
+          console.error('There was an error!', err);
+        }
+      });
     }
-    
+
     deleteUserForDialog(user: User) {
-        this.serv.deleteUser(user.id).subscribe(data => {
-            this.statusMessage = 'User ' + user.name + ' is deleted',
-                this.openSnackBar(this.statusMessage, "Success");
+      this.serv.deleteUser(user.id).subscribe({
+          next:(value => {
+            this.statusMessage = 'User ' + user.name + ' is deleted';
+            this.openSnackBar(this.statusMessage, "Success");
             this.loadUsers();
-        })
+          })
+        }
+      )
     }
 
     editUser(user: User) {
-        this.serv.updateUser(user.id, user).subscribe(data => {
-            this.statusMessage = 'User ' + user.name + ' is updated',
-            this.openSnackBar(this.statusMessage, "Success");
-            this.loadUsers();
-        },
-            error => {
-                this.openSnackBar(error.statusText, "Error");
-            }
-        );
+      this.serv.updateUser(user.id, user).subscribe({
+        next: (value => {
+          this.statusMessage = 'User ' + user.name + ' is updated';
+          this.openSnackBar(this.statusMessage, "Success");
+          this.loadUsers();
+        }),
+        error: (err => {
+          this.openSnackBar(err.statusText, "Error");
+        })
+      })
     }
 
     saveUser(user: User) {
         if (user.age != null && user.name != null && user.name != "" && user.age != 0) {
-            this.serv.createUser(user).subscribe(data => {
-                this.statusMessage = 'User ' + user.name + ' is added',
+            this.serv.createUser(user).subscribe({
+              next: value => {
+                this.statusMessage = 'User ' + user.name + ' is added';
                 this.showTable = false;
                 this.openSnackBar(this.statusMessage, "Success");
                 this.loadUsers();
-            },
-                error => {
-                    this.showTable = false;
-                    this.openSnackBar(error.statusText, "Error");
-                }
-            );
+              },
+              error: err => {
+                this.showTable = false;
+                this.openSnackBar(err.statusText, "Error");
+              }
+            });
         }
         else {
             this.openSnackBar("Please enter correct data", "Error")
@@ -147,7 +150,7 @@ export class AppComponent implements OnInit {
         });
     }
 
-    //   Form field with error messages 
+    //   Form field with error messages
     name = new FormControl('', [Validators.required]);
 
     getErrorMessage() {

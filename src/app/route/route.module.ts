@@ -1,13 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from "@angular/router";
-
-const routes: Routes = [
-  // {path: "mat", component : MattestComponent},
-];
+import { RouterModule } from "@angular/router";
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule],
   exports: [RouterModule],
   declarations: []
 })
