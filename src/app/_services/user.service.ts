@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {User} from './user';
+import {User} from "../_models";
 
 @Injectable()
 export class UserService{
@@ -10,13 +10,11 @@ export class UserService{
     constructor(private http: HttpClient){ }
 
     getUsers(){
-        let getUrl = `${this.url}/api/allUsers/`;
-        return this.http.get<User[]>(getUrl);
+        return this.http.get<User[]>(`${this.url}/api/allUsers/`);
     }
 
     createUser(user: User){
-        let saveUrl = `${this.url}/api/create`;
-        return this.http.post(saveUrl, user);
+        return this.http.post(`${this.url}/api/create`, user);
     }
 
     updateUser(id: number, user: User) {

@@ -1,6 +1,4 @@
 import { Component, ViewChild, OnInit} from '@angular/core';
-import { UserService } from './user.service';
-import { User } from './user';
 import { MatDialog} from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,6 +6,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogOverviewExampleDialogComponent } from './dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 import { FormControl, Validators } from '@angular/forms';
+import {UserService} from "./_services";
+import {User} from "./_models";
 
 @Component({
     selector: 'app-root',
@@ -68,9 +68,8 @@ export class AppComponent implements OnInit {
           this.dataSourceUsers.paginator = this.paginator;
         }),
         error : err => {
-          alert("Error: " + err.message);
+          alert(`Error ${err}!`);
           this.isLoaded = false;
-          console.error('There was an error!', err);
         }
       });
     }
@@ -94,7 +93,7 @@ export class AppComponent implements OnInit {
           this.loadUsers();
         }),
         error: (err => {
-          this.openSnackBar(err.statusText, "Error");
+          this.openSnackBar(err, "Error");
         })
       })
     }
@@ -110,7 +109,7 @@ export class AppComponent implements OnInit {
               },
               error: err => {
                 this.showTable = false;
-                this.openSnackBar(err.statusText, "Error");
+                this.openSnackBar(err, "Error");
               }
             });
         }
@@ -150,7 +149,7 @@ export class AppComponent implements OnInit {
         });
     }
 
-    //   Form field with error messages
+    //Form field with error messages
     name = new FormControl('', [Validators.required]);
 
     getErrorMessage() {
@@ -164,11 +163,6 @@ export class AppComponent implements OnInit {
     surnameFormControl= new FormControl('', [Validators.required]);
     emailGetErrorMessage() {
         return this.email.hasError('required') ? 'You must enter a value' :
-            this.email.hasError('email') ? 'Not a valid email' :
-                '';
-    }
-
-    onSubmit(newUser:User){
-        this.newUser = new User(0,"",0,"","");
+            this.email.hasError('email') ? 'Not a valid email' : '';
     }
 }
